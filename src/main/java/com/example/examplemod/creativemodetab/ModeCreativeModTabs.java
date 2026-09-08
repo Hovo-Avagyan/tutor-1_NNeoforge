@@ -1,6 +1,7 @@
 package com.example.examplemod.creativemodetab;
 
 import com.example.examplemod.ExampleMod;
+import com.example.examplemod.block.ModBlocks;
 import com.example.examplemod.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -29,11 +30,10 @@ public class ModeCreativeModTabs {
                     }).build());
 
     public static final Supplier<CreativeModeTab> AZURITE_BLOCKS_TAB = CREATIVE_MODE_TABS.register("azurite_block_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.RAW_AZURITE.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.AZURITE_BLOCK.get()))
                     .title(Component.translatable("creativetab.examplemod.azurite_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ModItems.AZURITE);
-                        output.accept(ModItems.RAW_AZURITE);
+                        output.accept(ModBlocks.AZURITE_BLOCK);
                     }).build());
 
     public static void register (IEventBus eventBus){

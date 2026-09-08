@@ -16,7 +16,7 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(ExampleMod.MODID);
 
-    public static final DeferredBlock<Block> AZURITE_BLOCK = registerBlock("azuite_block",
+    public static final DeferredBlock<Block> AZURITE_BLOCK = registerBlock("azurite_block",
             properties -> new Block(properties.strength(4f)
                     .requiresCorrectToolForDrops().sound(SoundType.AMETHYST)));
 
@@ -27,10 +27,10 @@ public class ModBlocks {
     }
 
     public static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block){
-        ModItems.ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.useBlockDescriptionPrefix()))
+        ModItems.ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.useBlockDescriptionPrefix()));
     }
 
     public static void register(IEventBus eventBus){
-        BLOCKS.register(eventBus)
+        BLOCKS.register(eventBus);
     }
 }
