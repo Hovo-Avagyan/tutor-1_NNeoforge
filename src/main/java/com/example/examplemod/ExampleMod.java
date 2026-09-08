@@ -1,5 +1,7 @@
 package com.example.examplemod;
 
+import com.example.examplemod.block.ModBlocks;
+import com.example.examplemod.creativemodetab.ModeCreativeModTabs;
 import com.example.examplemod.item.ModItems;
 import org.slf4j.Logger;
 
@@ -44,7 +46,10 @@ public class ExampleMod {
 
         modEventBus.addListener(this::commonSetup);
 
+        ModeCreativeModTabs.register(modEventBus);
+
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
