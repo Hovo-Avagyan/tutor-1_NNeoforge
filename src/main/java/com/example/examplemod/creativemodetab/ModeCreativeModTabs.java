@@ -34,6 +34,11 @@ public class ModeCreativeModTabs {
                     .title(Component.translatable("creativetab.examplemod.azurite_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModBlocks.AZURITE_BLOCK);
+                        output.accept(ModBlocks.AZURITE_ORE);
+                        output.accept(ModBlocks.RAW_AZURITE_BlOCK);
+                        output.accept(ModBlocks.AZURITE_DEEPSLATE_ORE);
+                        output.accept(ModBlocks.AZURITE_NETHER_ORE);
+                        output.accept(ModBlocks.AZURITE_END_ORE);
                     }).build());
 
     public static void register (IEventBus eventBus){
