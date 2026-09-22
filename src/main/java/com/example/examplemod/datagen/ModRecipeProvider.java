@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -35,10 +36,26 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
-        nineBlockStorageRecipes(RecipeCategory.MISC, ModItems.AZURITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZURITE_BLOCK
-                ,getSimpleRecipeName(ModBlocks.AZURITE_BLOCK), ExampleMod.MODID + ":" + getSimpleRecipeName(ModBlocks.AZURITE_BLOCK),
-                getSimpleRecipeName(ModItems.AZURITE), ExampleMod.MODID + ":" +  getSimpleRecipeName(ModItems.AZURITE));
+        shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZURITE_BLOCK.get())
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A', ModItems.AZURITE.get())
+                .unlockedBy(getHasName(ModItems.AZURITE.get()), has(ModItems.AZURITE))
+                .group("azurite")
+                .save(output);
 
+        shapeless(RecipeCategory.MISC, ModItems.AZURITE.get(), 9)
+                .requires(ModBlocks.AZURITE_BLOCK)
+                .unlockedBy(getHasName(ModBlocks.AZURITE_BLOCK.get()), has(ModBlocks.AZURITE_BLOCK))
+                .group("azurite")
+                .save(output);
 
+        shapeless(RecipeCategory.MISC, ModItems.AZURITE.get(), 18)
+                .requires(ModBlocks.AZURITE_BLOCK)
+                .requires(Items.BLAZE_POWDER)
+                .unlockedBy(getHasName(ModBlocks.AZURITE_BLOCK.get()), has(ModBlocks.AZURITE_BLOCK))
+                .group("azurite")
+                .save(output, "tutorialmod:azurite_from_blaze_powder");
     }
 }
