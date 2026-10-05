@@ -9,6 +9,14 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Items;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -57,5 +65,22 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(ModBlocks.AZURITE_BLOCK.get()), has(ModBlocks.AZURITE_BLOCK))
                 .group("azurite")
                 .save(output, "tutorialmod:azurite_from_blaze_powder");
+
+        List<ItemLike> AZURITE_SMELTABLES = List.of(ModItems.RAW_AZURITE,
+                ModBlocks.AZURITE_ORE, ModBlocks.AZURITE_DEEPSLATE_ORE, ModBlocks.AZURITE_NETHER_ORE, ModBlocks.AZURITE_END_ORE);
+
+        oreSmelting(AZURITE_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.AZURITE.get(), 0.5f, 200, "azurite");
+        oreBlasting(AZURITE_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.AZURITE.get(), 0.5f, 100, "azurite");
+
+    }
+
+    @Override
+    protected <T extends AbstractCookingRecipe> void oreCooking(AbstractCookingRecipe.Factory<T> factory, List<ItemLike> smeltables,
+                                                                RecipeCategory craftingCategory, CookingBookCategory cookingCategory, ItemLike result,
+                                                                float experience, int cookingTime, String group, String fromDesc) {
+        for(ItemLike itemlike : smeltables) {
+            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), craftingCategory, cookingCategory, result, experience, cookingTime, factory).group(group).unlockedBy(getHasName(itemlike), has(itemlike))
+                    .save(output, ExampleMod.MODID + ":" + getItemName(result) + fromDesc + "_" + getItemName(itemlike));
+        }
     }
 }
